@@ -23,10 +23,22 @@ class Chatroom {
     const response = await this.chats.add(chat);
     return this;
   }
+
+  getChats(callback) {
+    this.chats
+      .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if(change.type === 'added') {
+            //update the ui
+            callback(change.doc.data())
+          }
+        });
+      });
+  }
 }
 
 const chatRoom = new Chatroom('gaming', 'shaun');
 
-chatRoom.addChat('hello everyone')
-  .then(() => console.log('chat added'))
-  .catch(err => console.log(err));
+chatRoom.getChats(data => {
+  console.log(data);
+});
