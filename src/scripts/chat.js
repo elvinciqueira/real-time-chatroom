@@ -53,11 +53,3 @@ class Chatroom {
   }
 }
 
-const chatRoom = new Chatroom('gaming', 'shaun');
-
-chatRoom.getChats(data => {
-  console.log(data);
-});
-
-chatRoom.updateRoom('gaming');
-
